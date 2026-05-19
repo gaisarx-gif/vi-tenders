@@ -1,0 +1,147 @@
+rules_version = '2';
+
+// =============================================================================
+// Vision-OS — Firestore security rules
+// =============================================================================
+//
+// Owner email is hardcoded in this file (Firestore rules can't read env vars).
+// Keep `OWNER_EMAIL` env var on the server in sync with `OWNER_EMAIL` below.
+// To change owner, update both this file AND `.env.local` and redeploy rules:
+//     firebase deploy --only firestore:rules
+//
+// All server-initiated writes (issues, tenders, notifications, employee CRUD,
+// org merges) go through firebase-admin which bypasses these rules. So we lock
+// those collections down for clients.
+//
+// =============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // -------------------------------------------------------------------------
+    // Helper functions
+    // -------------------------------------------------------------------------
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Owner — change this to your real super-admin email.
+    function isOwner() {
+      return isAuthenticated() &&
+        request.auth.token.email != null &&
+        request.auth.token.email.lower() == "aawad39506@gmail.com";
+    }
+
+    // Admin via the authorized_employees collection.
+    // The doc id is the email (uppercased — set on insert).
+    function isEmployeeAdmin() {
+      return isAuthenticated() &&
+        request.auth.token.email != null &&
+        exists(/databases/$(database)/documents/authorized_employees/$(request.auth.token.email.upper())) &&
+        get(/databases/$(database)/documents/authorized_employees/$(request.auth.token.email.upper())).data.role == 'admin';
+    }
+
+    function isAdmin() {
+      return isOwner() || isEmployeeAdmin();
+    }
+
+    // The user is acting on a doc that belongs to themselves.
+    function isSelf(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // -------------------------------------------------------------------------
+    // /users — profile docs
+    // -------------------------------------------------------------------------
+    match /users/{userId} {
+      allow read: if isSelf(userId) || isAdmin();
+      // Self-write must NOT escalate role
+      allow write: if isAdmin()
+                || (isSelf(userId) && request.resource.data.role == 'user');
+    }
+
+    // -------------------------------------------------------------------------
+    // /authorized_employees — admin/user list
+    // -------------------------------------------------------------------------
+    match /authorized_employees/{docId} {
+      // Any authenticated user can check whether they themselves are listed
+      // (the server does this in /api/login). Admin can list all.
+      allow get, list: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /issues + /tenders — server-managed
+    // -------------------------------------------------------------------------
+    match /issues/{issueId} {
+      allow read: if isAuthenticated();
+      allow write: if false;  // Admin SDK only
+    }
+
+    match /tenders/{tenderId} {
+      allow read: if isAuthenticated();
+      allow write: if false;  // Admin SDK only
+    }
+
+    match /canonical_organizations/{orgId} {
+      allow read: if isAuthenticated();
+      allow write: if false;  // Admin SDK only (merge_organizations endpoint)
+    }
+
+    // -------------------------------------------------------------------------
+    // /subscriptions — per-user watchlist
+    // -------------------------------------------------------------------------
+    match /subscriptions/{subId} {
+      allow read: if isSelf(resource.data.userId) || isAdmin();
+      allow create: if isSelf(request.resource.data.userId) || isAdmin();
+      allow update: if (isSelf(resource.data.userId)
+                        && request.resource.data.userId == resource.data.userId)
+                    || isAdmin();
+      allow delete: if isSelf(resource.data.userId) || isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /notifications — server-created, user-readable & markable-as-read
+    // -------------------------------------------------------------------------
+    match /notifications/{noteId} {
+      allow read: if isSelf(resource.data.userId) || isAdmin();
+      // Only server creates notifications
+      allow create: if isAdmin();
+      // User can only flip `read` on their own notification, nothing else
+      allow update: if isSelf(resource.data.userId)
+                 && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /calendar_events — per-user
+    // -------------------------------------------------------------------------
+    match /calendar_events/{eventId} {
+      allow read: if isSelf(resource.data.userId) || isAdmin();
+      allow create: if isSelf(request.resource.data.userId) || isAdmin();
+      allow update: if (isSelf(resource.data.userId)
+                        && request.resource.data.userId == resource.data.userId)
+                    || isAdmin();
+      allow delete: if isSelf(resource.data.userId) || isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // /companies — directory
+    // -------------------------------------------------------------------------
+    // Direct client writes are admin-only. Regular users add companies through
+    // POST /api/companies which uses the Admin SDK (bypasses these rules) and
+    // applies server-side Zod validation + audit logging.
+    match /companies/{companyId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // Default-deny for anything else
+    // -------------------------------------------------------------------------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

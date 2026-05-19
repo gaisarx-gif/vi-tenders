@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "Tender": {
+      "title": "Tender",
+      "description": "A tender announcement extracted from Kuwait Today or imported from Excel",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "organizationName": { "type": "string" },
+        "tenderNo": { "type": "string" },
+        "description": { "type": "string" },
+        "publishingDate": { "type": "string" },
+        "closingDate": { "type": "string" },
+        "pretenderMeeting": { "type": "string" },
+        "source": { "type": "string" },
+        "page": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["New Tender", "Postponed", "Re-announcement", "Advance Notice"]
+        },
+        "createdAt": { "type": "number" },
+        "dataSource": { "type": "string" },
+        "issueId": { "type": "string" }
+      },
+      "required": ["organizationName", "tenderNo", "description", "status", "createdAt"]
+    },
+    "TenderIssue": {
+      "title": "TenderIssue",
+      "description": "A specific issue of Kuwait Today gazette",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "issueNumber": { "type": "string" },
+        "date": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["issueNumber", "date", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Application user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "CalendarEvent": {
+      "title": "CalendarEvent",
+      "description": "User-defined calendar event for tender follow-up or meetings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "purpose": { "type": "string", "enum": ["follow_up", "meeting", "other"] },
+        "tenderNo": { "type": "string" },
+        "organizationName": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "date", "purpose", "description", "createdAt"]
+    },
+    "Company": {
+      "title": "Company",
+      "description": "Company contact information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nameAr": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "contactPerson": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "location": { "type": "string" },
+        "website": { "type": "string" },
+        "category": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["nameAr", "nameEn", "contactPerson", "email", "phone", "location", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/issues/{issueId}": {
+      "schema": "TenderIssue",
+      "description": "Gazette issues"
+    },
+    "/tenders/{tenderId}": {
+      "schema": "Tender",
+      "description": "Individual tender announcements"
+    },
+    "/calendar_events/{eventId}": {
+      "schema": "CalendarEvent",
+      "description": "User calendar events"
+    },
+    "/companies/{companyId}": {
+      "schema": "Company",
+      "description": "Company directory"
+    }
+  }
+}
