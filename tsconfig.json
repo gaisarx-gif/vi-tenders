@@ -35,6 +35,7 @@
     "hooks/**/*",
     "lib/**/*",
     "scripts/**/*",
+    "api/**/*",
     "server.ts",
     "test-admin.ts",
     "vite.config.ts",

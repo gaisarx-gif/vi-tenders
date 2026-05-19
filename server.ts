@@ -74,4 +74,6 @@ export function createApp(): Express {
   return app;
 }
 
-startServer(createApp());
+if (!process.env.VERCEL) {
+  startServer(createApp());
+}
