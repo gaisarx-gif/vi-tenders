@@ -1,12 +1,10 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { logger } from '../server/lib/logger.js';
-import { applySecurityMiddleware } from '../server/middleware/security.ts';
 
-logger.info('Testing applySecurityMiddleware import...');
+logger.info('Testing without security middleware...');
 
 const app = express();
-applySecurityMiddleware(app);
 app.use(express.json());
 app.use(cookieParser());
 
