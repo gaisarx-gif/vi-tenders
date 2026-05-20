@@ -6,7 +6,7 @@
  * the entire batch.
  */
 
-import { TenderStatus } from '../../shared/normalizer.ts';
+import { TenderStatus } from '../../shared/normalizer.js';
 
 export interface NormalizedTender {
   organizationNameAr: string;

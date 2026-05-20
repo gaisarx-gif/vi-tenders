@@ -11,7 +11,7 @@
  */
 
 import dotenv from 'dotenv';
-import { logger } from './logger.ts';
+import { logger } from './logger.js';
 
 // Side-effect load. Order matters: real secrets first, fallback defaults second.
 dotenv.config({ path: '.env.local' });

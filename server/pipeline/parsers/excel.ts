@@ -7,7 +7,7 @@
  */
 
 import * as XLSX from 'xlsx';
-import { RawExtraction } from '../../ai/provider.ts';
+import { RawExtraction } from '../../ai/provider.js';
 
 export function parseExcel(fileBase64: string): RawExtraction[] {
   const buffer = Buffer.from(fileBase64, 'base64');

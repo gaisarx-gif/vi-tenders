@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { logger } from './logger.ts';
+import { logger } from './logger.js';
 
 export interface ExtractedTender {
   organizationName: string;

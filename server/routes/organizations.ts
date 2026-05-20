@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import type { AuthedRequest } from '../middleware/auth.ts';
-import { authenticateToken, checkDb, isAdmin } from '../middleware/auth.ts';
-import { db } from '../lib/firebase-admin.ts';
-import { logger } from '../lib/logger.ts';
-import { MergeOrgsSchema } from '../schemas/organizations.ts';
+import type { AuthedRequest } from '../middleware/auth.js';
+import { authenticateToken, checkDb, isAdmin } from '../middleware/auth.js';
+import { db } from '../lib/firebase-admin.js';
+import { logger } from '../lib/logger.js';
+import { MergeOrgsSchema } from '../schemas/organizations.js';
 
 export const organizationsRouter: Router = Router();
 

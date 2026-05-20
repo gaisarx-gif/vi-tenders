@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import type { AuthedRequest } from '../middleware/auth.ts';
-import { checkDb, isAdmin } from '../middleware/auth.ts';
-import { db } from '../lib/firebase-admin.ts';
-import { logger } from '../lib/logger.ts';
-import { TenderStatusUpdateSchema } from '../schemas/tenders.ts';
+import type { AuthedRequest } from '../middleware/auth.js';
+import { checkDb, isAdmin } from '../middleware/auth.js';
+import { db } from '../lib/firebase-admin.js';
+import { logger } from '../lib/logger.js';
+import { TenderStatusUpdateSchema } from '../schemas/tenders.js';
 
 export const adminTendersRouter: Router = Router();
 

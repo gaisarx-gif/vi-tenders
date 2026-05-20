@@ -16,8 +16,8 @@
 
 import admin from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
-import { FIREBASE_PROJECT_ID, FIREBASE_DATABASE_ID } from './env.ts';
-import { logger } from './logger.ts';
+import { FIREBASE_PROJECT_ID, FIREBASE_DATABASE_ID } from './env.js';
+import { logger } from './logger.js';
 
 if (!FIREBASE_PROJECT_ID) {
   logger.warn(

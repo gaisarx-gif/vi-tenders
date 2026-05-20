@@ -2,8 +2,8 @@ import type { Express } from 'express';
 import path from 'path';
 import express from 'express';
 
-import { logger } from '../server/lib/logger.ts';
-import { PORT } from '../server/lib/env.ts';
+import { logger } from '../server/lib/logger.js';
+import { PORT } from '../server/lib/env.js';
 
 export async function startServer(app: Express): Promise<void> {
   if (process.env.NODE_ENV !== 'production') {

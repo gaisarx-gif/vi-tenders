@@ -15,30 +15,30 @@ import express from 'express';
 import type { Express } from 'express';
 import cookieParser from 'cookie-parser';
 
-import { logger } from './server/lib/logger.ts';
+import { logger } from './server/lib/logger.js';
 // Side-effect import: initializes the Firebase Admin SDK so any downstream
 // route module that imports `db` from `server/lib/firebase-admin` sees it.
-import './server/lib/firebase-admin.ts';
+import './server/lib/firebase-admin.js';
 
-import { applySecurityMiddleware } from './server/middleware/security.ts';
-import { apiLimiter } from './server/middleware/rate-limit.ts';
-import { requestLogger } from './server/middleware/request-log.ts';
+import { applySecurityMiddleware } from './server/middleware/security.js';
+import { apiLimiter } from './server/middleware/rate-limit.js';
+import { requestLogger } from './server/middleware/request-log.js';
 
-import { healthRouter } from './server/routes/health.ts';
-import { authRouter } from './server/routes/auth.ts';
-import { meRouter } from './server/routes/me.ts';
-import { employeesRouter } from './server/routes/employees.ts';
-import { subscriptionsRouter } from './server/routes/subscriptions.ts';
-import { notificationsRouter } from './server/routes/notifications.ts';
-import { calendarRouter } from './server/routes/calendar.ts';
-import { companiesRouter } from './server/routes/companies.ts';
-import { tendersRouter } from './server/routes/tenders.ts';
-import { adminTendersRouter } from './server/routes/admin-tenders.ts';
-import { issuesRouter } from './server/routes/issues.ts';
-import { organizationsRouter } from './server/routes/organizations.ts';
-import { ingestRouter } from './server/routes/ingest.ts';
+import { healthRouter } from './server/routes/health.js';
+import { authRouter } from './server/routes/auth.js';
+import { meRouter } from './server/routes/me.js';
+import { employeesRouter } from './server/routes/employees.js';
+import { subscriptionsRouter } from './server/routes/subscriptions.js';
+import { notificationsRouter } from './server/routes/notifications.js';
+import { calendarRouter } from './server/routes/calendar.js';
+import { companiesRouter } from './server/routes/companies.js';
+import { tendersRouter } from './server/routes/tenders.js';
+import { adminTendersRouter } from './server/routes/admin-tenders.js';
+import { issuesRouter } from './server/routes/issues.js';
+import { organizationsRouter } from './server/routes/organizations.js';
+import { ingestRouter } from './server/routes/ingest.js';
 
-import { startServer } from './server/serve-app.ts';
+import { startServer } from './server/serve-app.js';
 
 logger.info('Starting server initialization...');
 

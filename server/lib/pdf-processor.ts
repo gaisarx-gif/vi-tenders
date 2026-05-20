@@ -1,6 +1,6 @@
 import { PDFDocument } from 'pdf-lib';
-import { extractTendersFromText, type ExtractedTender } from './gemini.ts';
-import { logger } from './logger.ts';
+import { extractTendersFromText, type ExtractedTender } from './gemini.js';
+import { logger } from './logger.js';
 
 const CHUNK_SIZE = 8000;
 const OVERLAP = 500;

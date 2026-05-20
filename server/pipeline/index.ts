@@ -8,16 +8,16 @@
  * imports or references a concrete AI model.
  */
 
-import { AIProvider, RawExtraction } from '../ai/provider.ts';
-import { parsePdf } from './parsers/pdf.ts';
-import { parseExcel } from './parsers/excel.ts';
-import { parseManual, ManualTenderInput } from './parsers/manual.ts';
-import { normalizeStatus, normalizeOrgName, STATUS_TO_AR, TenderStatus } from '../../shared/normalizer.ts';
-import { NormalizedTender, PipelineError, validate } from './validator.ts';
-import { EnrichedTender, DataSource, enrich } from './enricher.ts';
+import { AIProvider, RawExtraction } from '../ai/provider.js';
+import { parsePdf } from './parsers/pdf.js';
+import { parseExcel } from './parsers/excel.js';
+import { parseManual, ManualTenderInput } from './parsers/manual.js';
+import { normalizeStatus, normalizeOrgName, STATUS_TO_AR, TenderStatus } from '../../shared/normalizer.js';
+import { NormalizedTender, PipelineError, validate } from './validator.js';
+import { EnrichedTender, DataSource, enrich } from './enricher.js';
 
-export type { PipelineError } from './validator.ts';
-export type { EnrichedTender } from './enricher.ts';
+export type { PipelineError } from './validator.js';
+export type { EnrichedTender } from './enricher.js';
 
 export interface PipelineResult {
   tenders: EnrichedTender[];

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import * as XLSX from 'xlsx';
-import { authenticateToken, isAdmin } from '../middleware/auth.ts';
-import { uploadPdf, uploadExcel } from '../middleware/upload.ts';
-import { ingestLimiter } from '../middleware/rate-limit.ts';
-import { processPdfBuffer } from '../lib/pdf-processor.ts';
-import { db } from '../lib/firebase-admin.ts';
-import { logger } from '../lib/logger.ts';
-import type { AuthedRequest } from '../middleware/auth.ts';
+import { authenticateToken, isAdmin } from '../middleware/auth.js';
+import { uploadPdf, uploadExcel } from '../middleware/upload.js';
+import { ingestLimiter } from '../middleware/rate-limit.js';
+import { processPdfBuffer } from '../lib/pdf-processor.js';
+import { db } from '../lib/firebase-admin.js';
+import { logger } from '../lib/logger.js';
+import type { AuthedRequest } from '../middleware/auth.js';
 
 export const ingestRouter: Router = Router();
 
