@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { tolerantDateSchema } from './dates.js';
+import { tolerantDateSchema } from './dates.ts';
 
 export const TenderItemSchema = z.object({
   id: z.string().optional(),

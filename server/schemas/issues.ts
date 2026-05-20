@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { isoDateSchema } from './dates.js';
-import { TenderItemSchema } from './tenders.js';
+import { isoDateSchema } from './dates.ts';
+import { TenderItemSchema } from './tenders.ts';
 
 export const IssueCreateSchema = z.object({
   issueNumber: z.string().trim().min(1, 'Issue number is required'),

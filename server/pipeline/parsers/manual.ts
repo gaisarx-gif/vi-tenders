@@ -5,7 +5,7 @@
  * expected input shape.
  */
 
-import { RawExtraction } from '../../ai/provider.js';
+import { RawExtraction } from '../../ai/provider.ts';
 
 export interface ManualTenderInput {
   organizationNameAr?: string;

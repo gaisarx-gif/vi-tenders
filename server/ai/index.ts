@@ -5,8 +5,8 @@
  * Defaults to "gemini". Add new providers here as they are implemented.
  */
 
-import { AIProvider } from './provider.js';
-import { GeminiProvider } from './providers/gemini.js';
+import { AIProvider } from './provider.ts';
+import { GeminiProvider } from './providers/gemini.ts';
 
 let cachedProvider: AIProvider | null = null;
 
@@ -26,4 +26,4 @@ export function getAIProvider(): AIProvider {
   return cachedProvider;
 }
 
-export type { AIProvider, RawExtraction, TenderSummaryInput } from './provider.js';
+export type { AIProvider, RawExtraction, TenderSummaryInput } from './provider.ts';

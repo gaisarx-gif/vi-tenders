@@ -5,7 +5,7 @@
  * independently of model-specific code.
  */
 
-import { TenderSummaryInput } from './provider.js';
+import { TenderSummaryInput } from './provider.ts';
 
 export const PDF_EXTRACTION_PROMPT = `You are a specialized AI for analyzing the "Kuwait Today" (الكويت اليوم) official gazette. Your goal is to extract tender announcements with 100% accuracy.
 

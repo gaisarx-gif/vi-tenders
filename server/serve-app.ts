@@ -3,8 +3,8 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import express from 'express';
 
-import { logger } from '../server/lib/logger.js';
-import { PORT } from '../server/lib/env.js';
+import { logger } from '../server/lib/logger.ts';
+import { PORT } from '../server/lib/env.ts';
 
 export async function startServer(app: Express): Promise<void> {
   if (process.env.NODE_ENV !== 'production') {

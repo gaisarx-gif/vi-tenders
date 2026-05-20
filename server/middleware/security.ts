@@ -14,8 +14,8 @@ import type { Express } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { IS_PROD, FIREBASE_AUTH_DOMAIN, corsOrigins } from '../lib/env.js';
-import { logger } from '../lib/logger.js';
+import { IS_PROD, FIREBASE_AUTH_DOMAIN, corsOrigins } from '../lib/env.ts';
+import { logger } from '../lib/logger.ts';
 
 export function applySecurityMiddleware(app: Express): void {
   app.use(

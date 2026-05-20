@@ -6,8 +6,8 @@
  */
 
 import { Router } from 'express';
-import { db } from '../lib/firebase-admin.js';
-import { logger } from '../lib/logger.js';
+import { db } from '../lib/firebase-admin.ts';
+import { logger } from '../lib/logger.ts';
 
 export const healthRouter: Router = Router();
 

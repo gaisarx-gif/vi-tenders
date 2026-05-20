@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import type { AuthedRequest } from '../middleware/auth.js';
-import { authenticateToken, checkDb } from '../middleware/auth.js';
-import { db } from '../lib/firebase-admin.js';
-import { logger } from '../lib/logger.js';
-import { SubscriptionCreateSchema } from '../schemas/subscriptions.js';
+import type { AuthedRequest } from '../middleware/auth.ts';
+import { authenticateToken, checkDb } from '../middleware/auth.ts';
+import { db } from '../lib/firebase-admin.ts';
+import { logger } from '../lib/logger.ts';
+import { SubscriptionCreateSchema } from '../schemas/subscriptions.ts';
 
 export const subscriptionsRouter: Router = Router();
 

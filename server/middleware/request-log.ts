@@ -7,7 +7,7 @@
  */
 
 import type { Request, Response, NextFunction } from 'express';
-import { logger } from '../lib/logger.js';
+import { logger } from '../lib/logger.ts';
 
 const STATIC_RE = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|map|tsx|ts)$/;
 

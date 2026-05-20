@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import type { AuthedRequest } from '../middleware/auth.js';
-import { authenticateToken, checkDb, isAdmin } from '../middleware/auth.js';
-import { db } from '../lib/firebase-admin.js';
-import { logger } from '../lib/logger.js';
-import { CompanyCreateSchema, CompanyUpdateSchema } from '../schemas/companies.js';
+import type { AuthedRequest } from '../middleware/auth.ts';
+import { authenticateToken, checkDb, isAdmin } from '../middleware/auth.ts';
+import { db } from '../lib/firebase-admin.ts';
+import { logger } from '../lib/logger.ts';
+import { CompanyCreateSchema, CompanyUpdateSchema } from '../schemas/companies.ts';
 
 export const companiesRouter: Router = Router();
 

@@ -6,9 +6,9 @@
  */
 
 import { GoogleGenAI, Type } from '@google/genai';
-import { AIProvider, RawExtraction, TenderSummaryInput } from '../provider.js';
-import { PDF_EXTRACTION_PROMPT, buildSummarizationPrompt } from '../prompts.js';
-import { logger } from '../../lib/logger.js';
+import { AIProvider, RawExtraction, TenderSummaryInput } from '../provider.ts';
+import { PDF_EXTRACTION_PROMPT, buildSummarizationPrompt } from '../prompts.ts';
+import { logger } from '../../lib/logger.ts';
 
 const DEFAULT_MODEL = 'gemini-2.5-flash';
 

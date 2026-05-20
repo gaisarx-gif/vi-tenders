@@ -9,9 +9,9 @@
 
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.js';
-import { admin, db } from '../lib/firebase-admin.js';
-import { logger } from '../lib/logger.js';
+import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.ts';
+import { admin, db } from '../lib/firebase-admin.ts';
+import { logger } from '../lib/logger.ts';
 
 interface JwtUser {
   employeeId: string;

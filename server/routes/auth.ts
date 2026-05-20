@@ -13,12 +13,12 @@
 
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import { LoginSchema } from '../schemas/auth.js';
-import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.js';
-import { admin, db } from '../lib/firebase-admin.js';
-import { getCanonicalUid } from '../lib/uid.js';
-import { logger } from '../lib/logger.js';
-import { loginLimiter } from '../middleware/rate-limit.js';
+import { LoginSchema } from '../schemas/auth.ts';
+import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.ts';
+import { admin, db } from '../lib/firebase-admin.ts';
+import { getCanonicalUid } from '../lib/uid.ts';
+import { logger } from '../lib/logger.ts';
+import { loginLimiter } from '../middleware/rate-limit.ts';
 
 export const authRouter: Router = Router();
 

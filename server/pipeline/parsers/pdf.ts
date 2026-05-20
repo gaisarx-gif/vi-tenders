@@ -7,7 +7,7 @@
  */
 
 import { PDFDocument } from 'pdf-lib';
-import { AIProvider, RawExtraction } from '../../ai/provider.js';
+import { AIProvider, RawExtraction } from '../../ai/provider.ts';
 
 const CHUNK_SIZE = 15; // pages per AI request
 

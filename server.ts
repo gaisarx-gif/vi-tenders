@@ -15,7 +15,7 @@ import express from 'express';
 import type { Express } from 'express';
 import cookieParser from 'cookie-parser';
 
-import { logger } from './server/lib/logger.js';
+import { logger } from './server/lib/logger.ts';
 // Side-effect import: initializes the Firebase Admin SDK so any downstream
 // route module that imports `db` from `server/lib/firebase-admin` sees it.
 import './server/lib/firebase-admin.ts';

@@ -14,8 +14,8 @@
 
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.js';
-import { db } from '../lib/firebase-admin.js';
+import { JWT_SECRET, OWNER_EMAIL } from '../lib/env.ts';
+import { db } from '../lib/firebase-admin.ts';
 
 export interface AuthedRequest extends Request {
   user?: {

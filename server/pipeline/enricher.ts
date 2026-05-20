@@ -14,7 +14,7 @@
  * goes through the AIProvider interface.
  */
 
-import { NormalizedTender } from './validator.js';
+import { NormalizedTender } from './validator.ts';
 
 export type DataSource = 'PDF_ANALYSIS' | 'EXCEL_IMPORT' | 'MANUAL_ENTRY';
 
@@ -27,7 +27,7 @@ export interface EnrichedTender extends NormalizedTender {
   dataSource: DataSource;
 }
 
-import { STATUS_TO_AR } from '../../shared/normalizer.js';
+import { STATUS_TO_AR } from '../../shared/normalizer.ts';
 
 export function enrich(
   tenders: NormalizedTender[],
