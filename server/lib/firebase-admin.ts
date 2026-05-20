@@ -25,6 +25,7 @@ if (!FIREBASE_PROJECT_ID) {
   );
 }
 
+let dbInitialized = false;
 if (FIREBASE_PROJECT_ID && admin.apps.length === 0) {
   const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
   if (serviceAccountJson) {
@@ -34,33 +35,37 @@ if (FIREBASE_PROJECT_ID && admin.apps.length === 0) {
         credential: admin.credential.cert(serviceAccount),
         projectId: FIREBASE_PROJECT_ID,
       });
+      dbInitialized = true;
       logger.info('Firebase Admin initialized from FIREBASE_SERVICE_ACCOUNT_JSON');
     } catch (err) {
       logger.error('Failed to parse FIREBASE_SERVICE_ACCOUNT_JSON', { error: String(err) });
-      process.exit(1);
     }
   } else {
-    admin.initializeApp({
-      projectId: FIREBASE_PROJECT_ID,
-    });
-    logger.info('Firebase Admin initialized via Application Default Credentials');
+    try {
+      admin.initializeApp({
+        projectId: FIREBASE_PROJECT_ID,
+      });
+      dbInitialized = true;
+      logger.info('Firebase Admin initialized via Application Default Credentials');
+    } catch (err) {
+      logger.error('Failed to initialize Firebase Admin via ADC', { error: String(err) });
+    }
   }
 }
 
-// Use the specific database ID if provided
-export const db = FIREBASE_PROJECT_ID
+export const db = dbInitialized
   ? FIREBASE_DATABASE_ID
     ? getFirestore(FIREBASE_DATABASE_ID)
     : getFirestore()
   : null;
 
 if (db) {
-  logger.info('Firestore Admin SDK initialized', {
+  logger.info('Firestore Admin SDK connected', {
     databaseId: FIREBASE_DATABASE_ID || '(default)',
     projectId: FIREBASE_PROJECT_ID,
   });
 } else {
-  logger.warn('Firestore Admin SDK NOT initialized (missing FIREBASE_PROJECT_ID)');
+  logger.warn('Firestore Admin SDK NOT initialized');
 }
 
 export { admin };
