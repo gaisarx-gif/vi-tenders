@@ -1,15 +1,12 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import helmet from 'helmet';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { applySecurityMiddleware } from '../server/middleware/security.ts';
 import { logger } from '../server/lib/logger.js';
 
-logger.info('Testing with helmet included...');
+logger.info('Testing full applySecurityMiddleware...');
 
 const app = express();
-app.use(helmet());
-app.use(cors());
+applySecurityMiddleware(app);
 app.use(express.json());
 app.use(cookieParser());
 
