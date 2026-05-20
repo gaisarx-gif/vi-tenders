@@ -1,5 +1,4 @@
 import type { Express } from 'express';
-import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import express from 'express';
 
@@ -8,6 +7,7 @@ import { PORT } from '../server/lib/env.ts';
 
 export async function startServer(app: Express): Promise<void> {
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
